@@ -1,9 +1,13 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HomePage } from '~/pages';
 
 export default () => (
-  <Switch>
-    <Route component={HomePage} exact path="/" />
-  </Switch>
+  <Router
+    basename={'/dnd-roller'}
+  >
+    <Switch>
+      <Route component={HomePage} exact path="/" />
+    </Switch>
+  </Router>
 );
