@@ -39,11 +39,8 @@ class AdvancedTable extends Component<IProps> {
       <div
         className="ag-theme-balham"
         style={{
-          height: 'auto',
-          minHeight: '15rem',
+          height: '100%',
           width: '100%',
-          position: 'relative',
-          marginTop: '1rem',
         }}
       >
         <AgGridReact

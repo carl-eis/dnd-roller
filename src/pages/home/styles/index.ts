@@ -3,13 +3,27 @@ import background from '~/assets/background.jpg';
 
 export const Row = (styled.div)<any>`
   display: flex;
-  flex: 1 1 0;
+  // flex: 1 1 auto;
   flex-direction: row;
   justify-content: flex-start;
+  box-sizing: border-box;
+`;
+
+export const TablePositioner = (styled.div)<any>`
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: flex-start;
+  position: relative;
+  margin-top: 1rem;
 `;
 
 export const PageInnerContent = (styled.div)<any>`
-
+  flex: 1;
+  overflow: none;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ButtonsContainer = (styled.div)<any>`
@@ -32,7 +46,7 @@ export const PageWrapper = (styled.div)<any>`
   padding: 2rem;
   border-radius: 0.25rem;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  overflow-y: scroll;
+  // overflow-y: scroll;
 `;
 
 export const PageContainer = (styled.div)<any>`

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row } from './styles';
+import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
 import Button from '@material-ui/core/Button';
-import Table from '~/components/table';
 import { range } from 'lodash';
-import { getAllDiceRolls, getStatsObj } from '~/pages/home/helpers';
+import { getStatsObj } from '~/pages/home/helpers';
 import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
 
@@ -120,12 +119,12 @@ export default class HomePage extends Component<IProps, IState> {
                 </Button>
               </ButtonsContainer>
             </Row>
-            <Row>
+            <TablePositioner>
               <AdvancedTable
                 columns={columns}
                 rowData={displayRolls}
               />
-            </Row>
+            </TablePositioner>
           </PageInnerContent>
         </PageWrapper>
       </PageContainer>
