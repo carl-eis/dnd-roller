@@ -5,19 +5,34 @@ import { range } from 'lodash';
 import { getStatsObj, StatsCalculator } from '~/pages/home/helpers';
 import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
-import { CurrentRoll, StatsDisplay } from '~/components';
+import { CurrentRoll, SelectField, StatsDisplay } from '~/components';
 
 interface IProps {
   [x: string]: any;
 }
 
+interface IRuleOption {
+  value: string;
+  key: string;
+}
+
 interface IState {
   rolls: number[][][];
+  ruleOptions: IRuleOption[];
+  selectedRule: string;
 }
 
 export default class HomePage extends Component<IProps, IState> {
   state = {
     rolls: [],
+    ruleOptions: [{
+      value: 'Roll 3',
+      key: 'roll_3',
+    }, {
+      value: 'Roll 4, drop lowest',
+      key: 'roll_4',
+    }],
+    selectedRule: 'roll_3',
   };
 
   constructor(props) {
@@ -26,6 +41,13 @@ export default class HomePage extends Component<IProps, IState> {
     this.rollDice = this.rollDice.bind(this);
     this.clearRolls = this.clearRolls.bind(this);
     this.rollMultipleDice = this.rollMultipleDice.bind(this);
+    this.setSelectedRule = this.setSelectedRule.bind(this);
+  }
+
+  setSelectedRule(value: string) {
+    this.setState({
+      selectedRule: value,
+    });
   }
 
   rollDice() {
@@ -119,6 +141,7 @@ export default class HomePage extends Component<IProps, IState> {
       TOTAL_DICE_ROLLED,
       AVERAGE_SINGLE_ROLL,
     } = this.getStats();
+    const { selectedRule, ruleOptions } = this.state;
 
     return (
       <PageContainer>
@@ -146,6 +169,15 @@ export default class HomePage extends Component<IProps, IState> {
                 totalRolls={TOTAL_DICE_ROLLED}
                 totalStatRolls={TOTAL_STAT_ROLLS}
                 averageSingleRoll={AVERAGE_SINGLE_ROLL}
+              />
+            </Row>
+            <Row>
+              <SelectField
+                onChange={this.setSelectedRule}
+                value={selectedRule}
+                data={ruleOptions}
+                label={'Rolling rule'}
+                styles={{ maxWidth: '250px' }}
               />
             </Row>
             <Row>
