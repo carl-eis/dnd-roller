@@ -23,18 +23,6 @@ interface IState {
 }
 
 export default class HomePage extends Component<IProps, IState> {
-  state = {
-    rolls: [],
-    ruleOptions: [{
-      value: 'Roll 3',
-      key: 'roll_3',
-    }, {
-      value: 'Roll 4, drop lowest',
-      key: 'roll_4',
-    }],
-    selectedRule: 'roll_3',
-  };
-
   constructor(props) {
     super(props);
 
