@@ -5,7 +5,7 @@ import { range } from 'lodash';
 import { getStatsObj, StatsCalculator } from '~/pages/home/helpers';
 import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
-import { StatsDisplay } from '~/components';
+import { CurrentRoll, StatsDisplay } from '~/components';
 
 interface IProps {
   [x: string]: any;
@@ -93,6 +93,7 @@ export default class HomePage extends Component<IProps, IState> {
       sortable: true,
       resizable: true,
       filter: true,
+      lockPosition: true,
     };
     const statColumns = range(0, 6).map(item => ({
       headerName: `Stat ${item + 1}`,
@@ -146,6 +147,9 @@ export default class HomePage extends Component<IProps, IState> {
                 totalStatRolls={TOTAL_STAT_ROLLS}
                 averageSingleRoll={AVERAGE_SINGLE_ROLL}
               />
+            </Row>
+            <Row>
+              <CurrentRoll currentRolls={displayRolls[displayRolls.length - 1]}/>
             </Row>
             <TablePositioner>
               <AdvancedTable
