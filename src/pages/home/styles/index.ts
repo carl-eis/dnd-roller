@@ -14,7 +14,6 @@ export const Row = (styled.div)<{ even?: boolean }>`
 export const TablePositioner = (styled.div)<any>`
   display: flex;
   flex: 1;
-  overflow: hidden;
   flex-direction: row;
   justify-content: flex-start;
   position: relative;
@@ -23,14 +22,14 @@ export const TablePositioner = (styled.div)<any>`
 
 export const PageInnerContent = (styled.div)<any>`
   flex: 1;
-  overflow: none;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 `;
 
 export const ButtonsContainer = (styled.div)<any>`
   & button {
-    margin: 0 0.5rem;
+    margin: 0.5rem 0.5rem 0 0;
   }
 
   &:first-child > button {

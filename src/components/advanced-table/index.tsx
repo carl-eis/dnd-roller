@@ -39,7 +39,9 @@ class AdvancedTable extends Component<IProps> {
       <div
         className="ag-theme-balham"
         style={{
-          height: '100%',
+          height: 'auto',
+          maxHeight: '580px',
+          minHeight: '300px',
           width: '100%',
         }}
       >

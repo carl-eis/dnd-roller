@@ -2,14 +2,7 @@ import styled from 'styled-components';
 
 const backgroundUrl = 'https://www.dndbeyond.com/Content/1-0-715-0/Skins/Waterdeep/images/character-sheet/content-frames/abilityscore.svg';
 
-export const StatsRow = (styled.div)<any>`
-  height: auto;
-  margin: 0.5rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-`;
+
 
 export const StatsBlock = (styled.div)`
   background: ${
@@ -52,5 +45,19 @@ export const StatsBlock = (styled.div)`
     font-family: Roboto,Helvetica,sans-serif;
     box-sizing: border-box;
     text-align: center;
+  }
+`;
+
+export const StatsRow = (styled.div)<any>`
+  height: auto;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+
+  ${StatsBlock} {
+    margin: 0.25rem 1rem 0.25rem 0;
   }
 `;
