@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import background from '~/assets/background.jpg';
 
-export const Row = (styled.div)<any>`
+export const Row = (styled.div)<{ even?: boolean }>`
   display: flex;
   // flex: 1 1 auto;
   flex-direction: row;
   justify-content: flex-start;
   box-sizing: border-box;
+  ${({ even }) => even ? 'justify-content: space-between;' : ''}
+  flex-wrap: wrap;
 `;
 
 export const TablePositioner = (styled.div)<any>`

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
 import Button from '@material-ui/core/Button';
 import { range } from 'lodash';
-import { getStatsObj } from '~/pages/home/helpers';
+import { getStatsObj, StatsCalculator } from '~/pages/home/helpers';
 import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
+import { StatsDisplay } from '~/components';
 
 interface IProps {
   [x: string]: any;
@@ -73,13 +74,26 @@ export default class HomePage extends Component<IProps, IState> {
     });
   }
 
-  render() {
+  getStats() {
+    const {
+      averageRoll,
+      totalStatRolls,
+      totalRolls,
+    } = new StatsCalculator(this.state.rolls);
+
+    return {
+      TOTAL_STAT_ROLLS: totalStatRolls,
+      TOTAL_DICE_ROLLED: totalRolls,
+      AVERAGE_SINGLE_ROLL: averageRoll,
+    };
+  }
+
+  getColumns() {
     const defaultColumnSettings = {
       sortable: true,
       resizable: true,
       filter: true,
     };
-    const displayRolls = this.getDisplayRolls();
     const statColumns = range(0, 6).map(item => ({
       headerName: `Stat ${item + 1}`,
       field: item.toString(),
@@ -90,34 +104,48 @@ export default class HomePage extends Component<IProps, IState> {
       field: 'average',
       ...defaultColumnSettings,
     }];
-    const columns = [
+    return [
       ...statColumns,
       ...otherColumns,
     ];
+  }
 
-    console.log({
-      columns,
-      displayRolls,
-    });
+  render() {
+    const displayRolls = this.getDisplayRolls();
+    const columns = this.getColumns();
+    const {
+      TOTAL_STAT_ROLLS,
+      TOTAL_DICE_ROLLED,
+      AVERAGE_SINGLE_ROLL,
+    } = this.getStats();
+
     return (
       <PageContainer>
         <PageWrapper>
           <PageInnerContent>
             <Row>
-              <h1>Really fair dice roller</h1>
             </Row>
-            <Row>
-              <ButtonsContainer>
-                <Button variant="contained" color="primary" onClick={this.rollDice}>
-                  ROLL!
-                </Button>
-                <Button variant="contained" color="primary" onClick={this.rollMultipleDice()}>
-                  ROLL 100!
-                </Button>
-                <Button variant="contained" color="primary" onClick={this.clearRolls}>
-                  CLEAR!
-                </Button>
-              </ButtonsContainer>
+            <Row even>
+              <div>
+                <h1>Really fair dice roller</h1>
+                <ButtonsContainer>
+                  <Button variant="contained" color="primary" onClick={this.rollDice}>
+                    ROLL!
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={this.rollMultipleDice()}>
+                    ROLL 100!
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={this.clearRolls}>
+                    CLEAR!
+                  </Button>
+                </ButtonsContainer>
+              </div>
+
+              <StatsDisplay
+                totalRolls={TOTAL_DICE_ROLLED}
+                totalStatRolls={TOTAL_STAT_ROLLS}
+                averageSingleRoll={AVERAGE_SINGLE_ROLL}
+              />
             </Row>
             <TablePositioner>
               <AdvancedTable
