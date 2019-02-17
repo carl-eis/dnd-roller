@@ -37,7 +37,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "cross-env NO_WATCH=true node scripts/test.js",
     "lint": "tslint --config tslint.json --format codeFrame --project tsconfig.json \"src/**/*.ts{,x}\" --exclude \"src/**/*.d.ts\"",
     "types": "tsc",
     "prepush": "yarn types && yarn lint && cross-env NO_WATCH=true yarn test",
