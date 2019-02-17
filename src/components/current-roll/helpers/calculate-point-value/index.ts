@@ -3,12 +3,7 @@ const roundDown = (num: number): number => {
   if (splitNumbers.length < 1) return num;
   const [wholeNumber, fractionNumber] = splitNumbers;
   const isNegative: boolean = num < 0;
-  if (fractionNumber >= 0) {
-    if (isNegative) {
-      return wholeNumber - 1;
-    }
-  }
-  return wholeNumber;
+  return (fractionNumber >= 0 && isNegative) ? wholeNumber - 1 : wholeNumber;
 };
 
 export default (oldVal: string): string => {
