@@ -12,15 +12,15 @@ self.__precacheManifest = [
     "url": "/dnd-roller/static/js/runtime~main.4d775eca.js"
   },
   {
-    "revision": "26ad33d10d4f2eff4afb",
-    "url": "/dnd-roller/static/js/main.26ad33d1.chunk.js"
+    "revision": "988ba8793b45946bd0ab",
+    "url": "/dnd-roller/static/js/main.988ba879.chunk.js"
   },
   {
     "revision": "f920654eac7e0700fbee",
     "url": "/dnd-roller/static/js/1.f920654e.chunk.js"
   },
   {
-    "revision": "26ad33d10d4f2eff4afb",
+    "revision": "988ba8793b45946bd0ab",
     "url": "/dnd-roller/static/css/main.86b869bf.chunk.css"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/dnd-roller/static/css/1.d75ac1cb.chunk.css"
   },
   {
-    "revision": "ccd4e159e533aabb821551bd5afd5b80",
+    "revision": "e7ca02bb9bb067e5365deae81114e604",
     "url": "/dnd-roller/index.html"
   }
 ];
