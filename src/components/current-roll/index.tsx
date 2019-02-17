@@ -3,24 +3,12 @@ import {
   StatsBlock,
   StatsRow
 } from './styles';
+import { calculatePointValue } from './helpers';
 
 const getName = (key: string) => {
   const parsedKey = parseInt(key, 10);
   if (!!parsedKey || parsedKey === 0) return `Stat ${(parsedKey + 1).toString()}`;
   return key;
-};
-
-const calcValue = (oldVal: string): string => {
-  const parsedVal = parseInt(oldVal, 10);
-  const calVal = (parsedVal - 10) / 2;
-  const splitVal = calVal.toString().split('.');
-
-  if (splitVal.length) {
-    const parsedInitial = parseInt(splitVal[0], 10);
-    return (parsedInitial < 0 ? (parsedInitial - 1).toString() : parsedInitial.toString());
-  }
-
-  return calVal.toString();
 };
 
 interface IProps {
@@ -48,7 +36,7 @@ export default class CurrentRoll extends Component<IProps, IState> {
           {stat}
         </div>
         <div className="secondary">
-          {calcValue(stat)}
+          {calculatePointValue(stat)}
         </div>
       </StatsBlock>
     );
