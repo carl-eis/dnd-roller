@@ -7,7 +7,6 @@ const roundDown = (num: number): number => {
     if (isNegative) {
       return wholeNumber - 1;
     }
-    return wholeNumber;
   }
   return wholeNumber;
 };
