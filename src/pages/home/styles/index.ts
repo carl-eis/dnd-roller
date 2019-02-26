@@ -63,3 +63,8 @@ export const PageContainer = (styled.div)<any>`
   background-size: cover;
   background-position: fixed;
 `;
+
+export const SelectFieldWrapper = styled.div<any>`
+  flex: 1 1 100%;
+  margin: 0.75rem 0;
+`;

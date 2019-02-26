@@ -8,7 +8,7 @@ import { CurrentRoll, SelectField } from '~/components';
 import { IStatRolls } from '~/modules/dice-reducer';
 import { IDiceRuleset } from '~/core/constants';
 
-import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
+import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, SelectFieldWrapper, TablePositioner } from './styles';
 
 interface IProps {
   [x: string]: any;
@@ -120,13 +120,15 @@ export default class HomePage extends Component<IAllProps, IState> {
               </div>
             </Row>
             <Row>
-              <SelectField
-                onChange={switchRule}
-                value={selectedRulesetId}
-                data={rulesetOptions}
-                label={'Rolling rule'}
-                styles={{ maxWidth: '250px' }}
-              />
+              <SelectFieldWrapper>
+                <SelectField
+                  onChange={switchRule}
+                  value={selectedRulesetId}
+                  data={rulesetOptions}
+                  label={'Rolling rule'}
+                  styles={{ maxWidth: '250px' }}
+                />
+              </SelectFieldWrapper>
             </Row>
             <Row>
               <CurrentRoll currentRolls={displayRolls[displayRolls.length - 1]}/>
