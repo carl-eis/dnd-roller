@@ -23,6 +23,12 @@ interface IState {
 }
 
 export default class HomePage extends Component<IProps, IState> {
+  state = {
+    rolls: [],
+    ruleOptions: [],
+    selectedRule: '',
+  };
+
   constructor(props) {
     super(props);
 
@@ -30,6 +36,7 @@ export default class HomePage extends Component<IProps, IState> {
     this.clearRolls = this.clearRolls.bind(this);
     this.rollMultipleDice = this.rollMultipleDice.bind(this);
     this.setSelectedRule = this.setSelectedRule.bind(this);
+    this.getDisplayRolls = this.getDisplayRolls.bind(this);
   }
 
   setSelectedRule(value: string) {

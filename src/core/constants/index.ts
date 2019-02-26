@@ -1,4 +1,4 @@
-interface IDiceRuleset {
+export interface IDiceRuleset {
   name: string;
   dice: number;
   discardDice: number;
@@ -6,7 +6,7 @@ interface IDiceRuleset {
   sets: number;
 }
 
-interface IRulesets {
+export interface IRulesets {
   [x: string]: IDiceRuleset;
 }
 
@@ -32,4 +32,9 @@ export const RULESETS: IRulesets = {
     discardDice: 1,
     discardSets: 0,
   },
+};
+
+export const UTILITIES = {
+  numericSort: (a, b) => (b - a),
+  addNumbers: (acc: number, item: number) => (acc + item),
 };

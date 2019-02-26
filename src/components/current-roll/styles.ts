@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-
-const backgroundUrl = 'https://www.dndbeyond.com/Content/1-0-715-0/Skins/Waterdeep/images/character-sheet/content-frames/abilityscore.svg';
-
+import backgroundSvg from '~/assets/abilityscore.svg';
 
 
 export const StatsBlock = (styled.div)`
@@ -10,7 +8,7 @@ export const StatsBlock = (styled.div)`
       'center',
       'center',
       'transparent',
-      `url(${backgroundUrl})`,
+      `url(${backgroundSvg})`,
     ].join(' ')
   };
   background-size: contain;
