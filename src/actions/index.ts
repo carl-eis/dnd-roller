@@ -4,7 +4,7 @@ export const SELECT_STAT_BLOCK = 'SELECT_STAT_BLOCK';
 export const CLEAR_ALL_ROLLS = 'CLEAR_ALL_ROLLS';
 
 export const switchRule = (ruleName: string) => ({
-  type: SWITCH_RULE,
+  type: SWITCH_RULE, data: ruleName,
 });
 
 export const rollStats = (amount: number = 1) => ({

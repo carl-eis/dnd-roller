@@ -11,10 +11,20 @@ export const mapStateToProps = (state: IApplicationState) => {
       ruleSets,
     },
   } = state;
+
+  const rulesetOptions = Object.keys(ruleSets).map((item) => {
+    const currentItem = ruleSets[item];
+    return {
+      key: item,
+      value: currentItem.name,
+    };
+  });
+
   return {
-    statRolls,
+    rulesetOptions,
     selectedRuleset: ruleSets[selectedRule],
     selectedRulesetId: selectedRule,
+    statRolls,
   };
 };
 

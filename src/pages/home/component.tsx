@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
 import Button from '@material-ui/core/Button';
 import { range } from 'lodash';
-import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
+
+import AdvancedTable from '~/components/advanced-table';
 import { CurrentRoll, SelectField } from '~/components';
 import { IStatRolls } from '~/modules/dice-reducer';
 import { IDiceRuleset } from '~/core/constants';
+
+import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
 
 interface IProps {
   [x: string]: any;
@@ -19,6 +21,7 @@ interface IContainerProps {
   selectedRulesetId: string;
   statRolls: IStatRolls;
   switchRule: (rule: string) => void;
+  rulesetOptions: Array<{ key: string; value: string }>;
 }
 
 type IAllProps = IProps & IContainerProps;
@@ -84,8 +87,13 @@ export default class HomePage extends Component<IAllProps, IState> {
   }
 
   render() {
-    const { rollStats, clearAllRolls, statRolls } = this.props;
-    const { selectedRule, ruleOptions } = this.state;
+    const {
+      clearAllRolls,
+      rollStats,
+      rulesetOptions,
+      selectedRulesetId,
+      switchRule,
+    } = this.props;
     const columns = this.getColumns();
     const displayRolls = this.getDisplayRolls();
 
@@ -113,9 +121,9 @@ export default class HomePage extends Component<IAllProps, IState> {
             </Row>
             <Row>
               <SelectField
-                onChange={() => {}}
-                value={selectedRule}
-                data={ruleOptions}
+                onChange={switchRule}
+                value={selectedRulesetId}
+                data={rulesetOptions}
                 label={'Rolling rule'}
                 styles={{ maxWidth: '250px' }}
               />

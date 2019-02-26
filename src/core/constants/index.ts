@@ -12,7 +12,7 @@ export interface IRulesets {
 
 export const RULESETS: IRulesets = {
   ROLL_3: {
-    name: 'Roll 3',
+    name: 'Roll 6x3',
     dice: 3,
     sets: 6,
     discardDice: 0,

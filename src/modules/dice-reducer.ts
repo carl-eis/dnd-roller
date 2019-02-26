@@ -1,7 +1,7 @@
 import { generate } from 'shortid';
 import { range } from 'lodash';
 import { IRulesets, RULESETS } from '~/core/constants';
-import { ROLL_STATS, CLEAR_ALL_ROLLS } from '~/actions';
+import { ROLL_STATS, CLEAR_ALL_ROLLS, SWITCH_RULE } from '~/actions';
 import { rollStatBlock } from '~/helpers';
 
 export interface IStatRolls {
@@ -28,7 +28,7 @@ export default function (state: IDiceReducerState = initialState, action): IDice
       const { selectedRule, ruleSets } = state;
 
       const statRolls = range(0, rollAmount)
-        .reduce((acc, item) => {
+        .reduce((acc) => {
           const statBlock = rollStatBlock(ruleSets[selectedRule], selectedRule);
           const id = generate();
           return {
@@ -45,12 +45,21 @@ export default function (state: IDiceReducerState = initialState, action): IDice
         },
       };
     }
+
+    case SWITCH_RULE: {
+      return {
+        ...state,
+        selectedRule: data,
+      };
+    }
+
     case CLEAR_ALL_ROLLS: {
       return {
         ...state,
         statRolls: {},
       };
     }
+
     default:
       return state;
   }
