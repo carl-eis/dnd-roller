@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
+import diceReducer, { IDiceReducerState } from '~/modules/dice-reducer';
 
 export interface IApplicationState {
-  [x: string]: any;
+  diceReducer: IDiceReducerState;
 }
 
 const initialState = {};
@@ -18,5 +19,6 @@ const rootReducer = (state = initialState, action: any) => {
 
 export default (history: any) => combineReducers({
   rootReducer,
+  diceReducer,
   router: connectRouter(history),
 });

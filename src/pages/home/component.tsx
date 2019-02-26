@@ -2,14 +2,26 @@ import React, { Component } from 'react';
 import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, TablePositioner } from './styles';
 import Button from '@material-ui/core/Button';
 import { range } from 'lodash';
-import { getStatsObj, StatsCalculator } from '~/pages/home/helpers';
 import AdvancedTable from '~/components/advanced-table';
 import { round } from 'mathjs';
-import { CurrentRoll, SelectField, StatsDisplay } from '~/components';
+import { CurrentRoll, SelectField } from '~/components';
+import { IStatRolls } from '~/modules/dice-reducer';
+import { IDiceRuleset } from '~/core/constants';
 
 interface IProps {
   [x: string]: any;
 }
+
+interface IContainerProps {
+  clearAllRolls: () => void;
+  rollStats: (amount: number) => void;
+  selectedRuleset: IDiceRuleset;
+  selectedRulesetId: string;
+  statRolls: IStatRolls;
+  switchRule: (rule: string) => void;
+}
+
+type IAllProps = IProps & IContainerProps;
 
 interface IRuleOption {
   value: string;
@@ -22,7 +34,7 @@ interface IState {
   selectedRule: string;
 }
 
-export default class HomePage extends Component<IProps, IState> {
+export default class HomePage extends Component<IAllProps, IState> {
   state = {
     rolls: [],
     ruleOptions: [],
@@ -32,77 +44,20 @@ export default class HomePage extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
-    this.rollDice = this.rollDice.bind(this);
-    this.clearRolls = this.clearRolls.bind(this);
-    this.rollMultipleDice = this.rollMultipleDice.bind(this);
-    this.setSelectedRule = this.setSelectedRule.bind(this);
     this.getDisplayRolls = this.getDisplayRolls.bind(this);
   }
 
-  setSelectedRule(value: string) {
-    this.setState({
-      selectedRule: value,
-    });
-  }
-
-  rollDice() {
-    const fullRoll = getStatsObj();
-    this.setState((prevState) => {
-      return {
-        rolls: [
-          ...prevState.rolls,
-          fullRoll,
-        ],
-      };
-    });
-  }
-
-  rollMultipleDice(rollAmount: number = 100) {
-    return () => {
-      const rolls = range(0, rollAmount).map(getStatsObj);
-      this.setState((prevState) => {
-        return {
-          rolls: [
-            ...prevState.rolls,
-            ...rolls,
-          ],
-        };
-      });
-    };
-  }
-
-  clearRolls() {
-    this.setState({ rolls: [] });
-  }
-
   getDisplayRolls() {
-    return this.state.rolls.map((statRow: number[][]) => {
-      const computedStatBlock: number[] = statRow.reduce((acc, rowRolls, index) => {
-        return [
-          ...acc,
-          rowRolls.reduce((a, b) => a + b),
-        ];
-      }, []).sort((a, b) => b - a);
+    const { statRolls } = this.props;
+    return Object.keys(statRolls).map((key: string) => {
+      const statRow = statRolls[key];
+      const computedStatBlock: number[] = statRow.sort((a, b) => b - a);
       const average = round(computedStatBlock.reduce((total, current) => total + current) / 6, 2);
       return {
         ...computedStatBlock,
         average,
       };
     });
-  }
-
-  getStats() {
-    const {
-      averageRoll,
-      totalStatRolls,
-      totalRolls,
-    } = new StatsCalculator(this.state.rolls);
-
-    return {
-      TOTAL_STAT_ROLLS: totalStatRolls,
-      TOTAL_DICE_ROLLED: totalRolls,
-      AVERAGE_SINGLE_ROLL: averageRoll,
-    };
   }
 
   getColumns() {
@@ -129,14 +84,10 @@ export default class HomePage extends Component<IProps, IState> {
   }
 
   render() {
-    const displayRolls = this.getDisplayRolls();
-    const columns = this.getColumns();
-    const {
-      TOTAL_STAT_ROLLS,
-      TOTAL_DICE_ROLLED,
-      AVERAGE_SINGLE_ROLL,
-    } = this.getStats();
+    const { rollStats, clearAllRolls, statRolls } = this.props;
     const { selectedRule, ruleOptions } = this.state;
+    const columns = this.getColumns();
+    const displayRolls = this.getDisplayRolls();
 
     return (
       <PageContainer>
@@ -148,27 +99,21 @@ export default class HomePage extends Component<IProps, IState> {
               <div>
                 <h1>Really fair dice roller</h1>
                 <ButtonsContainer>
-                  <Button variant="contained" color="primary" onClick={this.rollDice}>
+                  <Button variant="contained" color="primary" onClick={() => rollStats(1)}>
                     ROLL!
                   </Button>
-                  <Button variant="contained" color="primary" onClick={this.rollMultipleDice()}>
+                  <Button variant="contained" color="primary" onClick={() => rollStats(100)}>
                     ROLL 100!
                   </Button>
-                  <Button variant="contained" color="primary" onClick={this.clearRolls}>
+                  <Button variant="contained" color="primary" onClick={() => clearAllRolls()}>
                     CLEAR!
                   </Button>
                 </ButtonsContainer>
               </div>
-
-              <StatsDisplay
-                totalRolls={TOTAL_DICE_ROLLED}
-                totalStatRolls={TOTAL_STAT_ROLLS}
-                averageSingleRoll={AVERAGE_SINGLE_ROLL}
-              />
             </Row>
             <Row>
               <SelectField
-                onChange={this.setSelectedRule}
+                onChange={() => {}}
                 value={selectedRule}
                 data={ruleOptions}
                 label={'Rolling rule'}

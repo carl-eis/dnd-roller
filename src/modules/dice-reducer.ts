@@ -4,7 +4,7 @@ import { IRulesets, RULESETS } from '~/core/constants';
 import { ROLL_STATS, CLEAR_ALL_ROLLS } from '~/actions';
 import { rollStatBlock } from '~/helpers';
 
-interface IStatRolls {
+export interface IStatRolls {
   [x: string]: number[];
 }
 
