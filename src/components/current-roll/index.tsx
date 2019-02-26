@@ -26,9 +26,9 @@ export default class CurrentRoll extends Component<IProps, IState> {
     super(props);
   }
 
-  renderBlock(name: string, stat: string) {
+  renderBlock(name: string, stat: string, key: any) {
     return (
-      <StatsBlock>
+      <StatsBlock key={key}>
         <div className="heading">
           {name}
         </div>
@@ -44,13 +44,12 @@ export default class CurrentRoll extends Component<IProps, IState> {
 
   render() {
     const { currentRolls } = this.props;
-    console.log(currentRolls);
     if (!currentRolls) return null;
     return (
       <StatsRow>
-        {Object.keys(currentRolls).map((key) => {
+        {Object.keys(currentRolls).map((key, index) => {
           const name: string = getName(key);
-          return this.renderBlock(name, currentRolls[key]);
+          return this.renderBlock(name, currentRolls[key], index);
         })}
       </StatsRow>
     );
