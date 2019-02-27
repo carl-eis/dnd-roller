@@ -8,7 +8,7 @@ import { CurrentRoll, SelectField } from '~/components';
 import { IStatRolls } from '~/modules/dice-reducer';
 import { IDiceRuleset } from '~/core/constants';
 
-import { ButtonsContainer, PageContainer, PageInnerContent, PageWrapper, Row, SelectFieldWrapper, TablePositioner } from './styles';
+import { ButtonsContainer, Background, PageCardContent, PageCard, Row, SelectFieldWrapper, TablePositioner, RowInner } from './styles';
 
 interface IProps {
   [x: string]: any;
@@ -98,14 +98,16 @@ export default class HomePage extends Component<IAllProps, IState> {
     const displayRolls = this.getDisplayRolls();
 
     return (
-      <PageContainer>
-        <PageWrapper>
-          <PageInnerContent>
-            <Row>
-            </Row>
+      <Background>
+        <PageCard>
+          <PageCardContent>
             <Row even>
-              <div>
+              <RowInner>
                 <h1>Really fair dice roller</h1>
+              </RowInner>
+            </Row>
+            <Row>
+              <RowInner>
                 <ButtonsContainer>
                   <Button variant="contained" color="primary" onClick={() => rollStats(1)}>
                     ROLL!
@@ -117,18 +119,19 @@ export default class HomePage extends Component<IAllProps, IState> {
                     CLEAR!
                   </Button>
                 </ButtonsContainer>
-              </div>
+              </RowInner>
             </Row>
             <Row>
-              <SelectFieldWrapper>
-                <SelectField
-                  onChange={switchRule}
-                  value={selectedRulesetId}
-                  data={rulesetOptions}
-                  label={'Rolling rule'}
-                  styles={{ maxWidth: '250px' }}
-                />
-              </SelectFieldWrapper>
+              <RowInner>
+                <SelectFieldWrapper>
+                  <SelectField
+                    onChange={switchRule}
+                    value={selectedRulesetId}
+                    data={rulesetOptions}
+                    label={'Rolling rule'}
+                  />
+                </SelectFieldWrapper>
+              </RowInner>
             </Row>
             <Row>
               <CurrentRoll currentRolls={displayRolls[displayRolls.length - 1]}/>
@@ -139,9 +142,9 @@ export default class HomePage extends Component<IAllProps, IState> {
                 rowData={displayRolls}
               />
             </TablePositioner>
-          </PageInnerContent>
-        </PageWrapper>
-      </PageContainer>
+          </PageCardContent>
+        </PageCard>
+      </Background>
     );
   }
 }

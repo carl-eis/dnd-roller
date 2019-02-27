@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import { StyledSelect } from './styles';
 
 interface IDropdownData {
   key: string;
@@ -21,7 +21,7 @@ interface IState {
   [x: string]: any;
 }
 
-export default class ComponentName extends Component<IProps, IState> {
+export default class SelectField extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -43,15 +43,16 @@ export default class ComponentName extends Component<IProps, IState> {
         ...styles,
       }}>
         <InputLabel htmlFor="age-simple">{label}</InputLabel>
-        <Select
+        <StyledSelect
           value={value}
           onChange={this.handleChange}
         >
           {data.map(item => (
             <MenuItem value={item.key}>{item.value}</MenuItem>
           ))}
-        </Select>
+        </StyledSelect>
       </FormControl>
     );
   }
 }
+
